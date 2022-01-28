@@ -42,7 +42,7 @@
 # *.iml
 # *.ipr
 
-#envto
+#dotenv
 .env
 
 # CMake
