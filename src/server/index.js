@@ -1,47 +1,59 @@
 // TODO: Configure the environment variables
+// TODO: delete meaning cloud package
+const PORT = 8081;
+const mockAPIResponse = require("./mockAPI.js");
+const FormData = require("form-data");
+var cors = require("cors");
+var bodyParser = require("body-parser");
+const express = require("express");
+var path = require("path");
+const dotenv = require("dotenv");
+const app = express();
+const fetch = require("node-fetch");
 
-const mockAPIResponse = require('./mockAPI.js')
+dotenv.config();
 
-const PORT = 8081
+app.use(express.static("dist"));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-// TODO add Configuration to be able to use env variables
+const baseURL = "https://api.meaningcloud.com/sentiment-2.1?";
+const apiKey = process.env.API_KEY;
 
-
-// TODO: Create an instance for the server
-// TODO: Configure cors to avoid cors-origin issue
-// TODO: Configure express to use body-parser as middle-ware.
-// TODO: Configure express static directory.
-
-app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('src/client/views/index.html'))
-})
 // a route that handling post request for new URL that coming from the frontend
-/* TODO:
-    1. GET the url from the request body
-    2. Build the URL it should be something like `${BASE_API_URL}?key=${MEAN_CLOUD_API_KEY}&url=${req.body.url}&lang=en`
-    3. Fetch Data from API
-    4. Send it to the client
-    5. REMOVE THIS TODO AFTER DOING IT 😎😎
-    server sends only specified data to the client with below codes
-     const sample = {
-       text: '',
-       score_tag : '',
-       agreement : '',
-       subjectivity : '',
-       confidence : '',
-       irony : ''
-     }
-*/
+app.post("/search-url", async (req, res) => {
+  userUrl = req.body.url;
+  const apiReq = `${baseURL}key=${apiKey}&url=${userUrl}&lang=en`;
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
-})
+  const response = await fetch(`${apiReq}`);
+  const resData = await response.json();
+  res.send(resData);
+  /** server sends only specified data to the client with below codes
+   * const resData = {
+   *  score_tag : resData.score_tag,
+   *  agreement : resData.agreement,
+   *  subjectivity : resData.subjectivity,
+   *  confidence : resData.confidence,
+   *  irony : resData.irony
+   * }
+   * res.send(resData);
+   * */
+});
 
-// designates what port the app will listen to for incoming requests
+app.get("/", function (req, res) {
+  res.sendFile(path.resolve("src/client/views/index.html"));
+});
+
+app.get("/test", function (req, res) {
+  res.send(mockAPIResponse);
+});
+
 app.listen(PORT, (error) => {
-    if (error) throw new Error(error)
-    console.log(`Server listening on port ${PORT}!`)
-})
-
-// TODO: export app to use it in the unit testing
+  if (error) throw new Error(error);
+  console.log(`Server listening on port ${PORT}!`);
+});

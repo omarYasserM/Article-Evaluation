@@ -6,6 +6,12 @@
   </head>
 
   <body>
+    <header>
+      <div class="container">
+        <h1>Article Evaluation</h1>
+        <a href="#">View github repo</a>
+    </div>
+    </header>
     <main>
       <div class="container">
         <p>Enter a URL of an article / a blog to discover its sentiment.</p>
@@ -16,6 +22,7 @@
             <button
               type="submit"
               class="btn-submit"
+              onclick="client.handleSubmit(event)"                                 
             >
               Submit
             </button>
@@ -24,12 +31,12 @@
 
         <section>
           <strong>Form Results:</strong>
-          <div id="text"></div>
-          <div id="agreement"></div>
-          <div id="subjectivity"></div>
-          <div id="confidence"></div>
-          <div id="irony"></div>
-          <div id="score_tag"></div>
+          <div id="text">Text:</div>
+          <div id="polarity">Polarity:</div>
+          <div id="agreement">Agreement:</div>
+          <div id="subjectivity">Subjectivity:</div>
+          <div id="confidence">Confidence:</div>
+          <div id="irony">Irony:</div>
         </section>
       </div>
     </main>
@@ -38,7 +45,8 @@
       if ('serviceWorker' in navigator) {
         // Use the window load event to keep the page load performant
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js')
+          navigator.serviceWorker.register('/service-worker.js');
+          
         })
       }
     </script>

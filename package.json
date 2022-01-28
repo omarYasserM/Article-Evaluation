@@ -9,14 +9,17 @@
     "build-dev": "webpack-dev-server  --config webpack.dev.js"
   },
   "keywords": [],
-  "author": "PUT_YOUR_NAME_HERE",
-  "description": "PUT_SMALL_DESCRIPTION_HERE",
+  "author": "Omar yasser",
+  "description": "final assignment for my fend",
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "form-data": "^4.0.0",
+    "meaning-cloud": "^1.1.10",
+    "node-fetch": "^2.6.7",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },

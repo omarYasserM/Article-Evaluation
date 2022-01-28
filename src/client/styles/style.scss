@@ -1,0 +1,12 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  main {
+    .container {
+      border: 2px solid #40407030;
+      padding: 40px;
+    }
+  }
+}
