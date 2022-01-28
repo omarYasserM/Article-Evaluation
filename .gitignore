@@ -42,6 +42,9 @@
 # *.iml
 # *.ipr
 
+#envto
+.env
+
 # CMake
 cmake-build-*/
 
